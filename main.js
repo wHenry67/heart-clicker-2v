@@ -17,15 +17,16 @@ clickSound.preload = "auto";
 
 let index = 1;
 let cliques = 0;
-let intervalo_cliques = 5
+let intervalo_cliques = 35
 const intervalo = intervalo_cliques;
 
 const lista_msgs = {
-    msg_1: "Mensagem 1",
-    msg_2: "Mensagem 2",
-    msg_3: "Mensagem 3",
-    msg_4: "Mensagem 4",
-    msg_5: "Mensagem 5"
+    msg_1: "Para esse dia tão especial, eu preparei uma surpresa para uma pessoa que eu amo demais... será que você consegue desbloquear esse presente?",
+    msg_2: "Continue assim, meu amorzinho, você já está quase na metade. Mal vejo a hora de conseguir abrir essa porta...",
+    msg_3: "Você chegou na metade do caminho, meu amor. Avançou mais do que imagina. Continua tentanto, o cadeado já está começando a revelar o meu presente rsrs",
+    msg_4: "Agora só falta mais um pouquinho. O cadeado já está cedendo... você está indo muito bem, meu amorzinho!",
+    msg_5: "Não para! Você está a um passo de abrir esse cadeado, meu amor.",
+    msg_6: "Eu sabia que você ia conseguir, João. Queria tanto estar com você agora e entregar essa carta nas suas mãos, porém, enquanto estivermos distantes, irei entregá-la virtualmente. Espero que goste do meu presente."
 };
 
 const lista_barra = [
@@ -79,9 +80,6 @@ function mostrarMensagem() {
     if (lista_msgs[chave]) {
 
         msgBox.textContent = lista_msgs[chave];
-    } else {
-
-        divMsg.classList.add("hide");
     }
     
     msgBox.classList.add('show');
@@ -110,6 +108,7 @@ function abrirCarta() {
 
     openSound.play();
 
+    divMsg.classList.add("hide");
     trocarImagem("src/carta-aberta.png");
 
     openSound.addEventListener("ended", () => {
@@ -205,7 +204,7 @@ function mensagemFinal() {
 
     const message = document.querySelector(".message");
 
-    message.textContent = "MENSAGEM";
+    message.textContent = "EU TE AMO DEMAIS, AMOR DA MINHA VIDA! MUITÍSSIMO OBRIGADA POR TUDO!";
 
     message.classList.remove("oculto");
 
@@ -213,7 +212,7 @@ function mensagemFinal() {
     message.offsetHeight;
 
     message.style.animation =
-        "slide-message 4s linear infinite, blink-message 0.35s step-end infinite";
+        "slide-message 15s linear infinite, blink-message 0.35s step-end infinite";
 }
 
 document.querySelector(".btn_fechar").onclick = function() {
