@@ -17,7 +17,7 @@ clickSound.preload = "auto";
 
 let index = 1;
 let cliques = 0;
-let intervalo_cliques = 10
+let intervalo_cliques = 5
 const intervalo = intervalo_cliques;
 
 const lista_msgs = {
