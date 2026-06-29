@@ -17,7 +17,7 @@ clickSound.preload = "auto";
 
 let index = 1;
 let cliques = 0;
-let intervalo_cliques = 5
+let intervalo_cliques = 35
 const intervalo = intervalo_cliques;
 
 const lista_msgs = {
@@ -39,51 +39,32 @@ const lista_barra = [
 ];
 
 function trocarImagem(novaSrc) {
-    
     imgPorta.classList.add("fade-out");
     btn.disabled = true;
-    
     setTimeout(() => {
-        
         imgPorta.src = novaSrc;
         imgPorta.classList.remove("fade-out");
-        
         btn.disabled = false;
-        
     }, 1000);
-
 }
 
 function atualizarBarra() {
-
     let indexBar = index - 1;
-
     if (indexBar >= 0 && indexBar < lista_barra.length) {
-
         barProxima.src = lista_barra[indexBar];
-     
         barProxima.classList.add("ativa");
         bar.classList.remove("ativa");
     }
-
 }
 
 function mostrarMensagem() {
-    
     msgBox.classList.remove('show');
-
-    //Força o navegador a reiniciar a animação
     void msgBox.offsetWidth;
-    
     let chave = `msg_${index}`;
-
     if (lista_msgs[chave]) {
-
         msgBox.textContent = lista_msgs[chave];
     }
-    
     msgBox.classList.add('show');
-    console.log(lista_msgs[chave]);
 }
 
 function abrirPorta() {
@@ -91,126 +72,112 @@ function abrirPorta() {
 
     const openSound = new Audio("audio/open.wav");
 
-    openSound.play();
+    // Fallback: se o áudio falhar ou não existir, troca a imagem de qualquer forma
+    let imagemTrocada = false;
+
+    function trocarParaAberta() {
+        if (imagemTrocada) return;
+        imagemTrocada = true;
+        trocarImagem("src/porta-aberta.png");
+    }
+
+    openSound.addEventListener("ended", trocarParaAberta);
+    openSound.addEventListener("error", trocarParaAberta);
+
+    // Segurança: após 4 segundos mostra a porta aberta de qualquer jeito
+    setTimeout(trocarParaAberta, 4000);
+
+    openSound.play().catch(trocarParaAberta);
 
     trocarImagem("src/porta-chave.png");
-
-    openSound.addEventListener("ended", () => {
-        
-        trocarImagem("src/IMG_3029.png")
-    });
-
 }
 
 function abrirCarta() {
+    const openSound = new Audio("audio/openLetter.wav");
 
-    const openSound = new Audio("audio/openLetter.wav")
+    // Fallback: se o áudio falhar ou não existir, mostra o botão de qualquer forma
+    let botaoMostrado = false;
 
-    openSound.play();
-
-    divMsg.classList.add("hide");
-    trocarImagem("src/IMG_3029.png");
-
-    openSound.addEventListener("ended", () => {
-
+    function mostrarBotaoFechar() {
+        if (botaoMostrado) return;
+        botaoMostrado = true;
         divBtn.classList.add("show");
-
         setTimeout(() => {
-
             divBtn.classList.remove("oculto");
         }, 500);
-    });
+    }
+
+    openSound.addEventListener("ended", mostrarBotaoFechar);
+    openSound.addEventListener("error", mostrarBotaoFechar);
+
+    // Segurança: após 4 segundos mostra o botão de qualquer jeito
+    setTimeout(mostrarBotaoFechar, 4000);
+
+    openSound.play().catch(mostrarBotaoFechar);
+
+    divMsg.classList.add("hide");
+    trocarImagem("src/carta-aberta.png");
 }
 
 btn.addEventListener("click", function () {
-    
     if (imgPorta.src.endsWith("porta-aberta.png")) {
-        
         abrirCarta();
         return;
     }
-    
+
     cliques += 1;
-    console.log(cliques);
 
     if (cliques === intervalo_cliques) {
-        
         index += 1;
-        
         if (index === 6) {
-            
             updateScreen();
             abrirPorta();
             return;
         } else {
-            
             intervalo_cliques += intervalo;
             updateScreen();
         }
-
     }
 
     clickSound.currentTime = 0;
-    clickSound.play();
+    clickSound.play().catch(() => {});
 });
 
 function updateScreen() {
-
-    console.log(imgPorta.src);
-    
     mostrarMensagem();
     atualizarBarra();
-
     if (imgPorta.getAttribute("src") === "") {
-
         trocarImagem("src/Btn-Porta.png");
     }
-
 }
 
 function mudarSecao() {
     const chuvaCoracoes = document.getElementById("chuva-coracoes");
-
     home.classList.add("hide");
-
     setTimeout(() => {
-
         home.classList.add("oculto");
-
         chuvaCoracoes.classList.remove("oculto");
-
         void chuvaCoracoes.offsetWidth;
-    
-        chuvaCoracoes.classList.add("show")
-
-    }, 500)
-   
+        chuvaCoracoes.classList.add("show");
+    }, 500);
 }
 
 function spawnHeart() {
-
-    const heart = document.createElement("img")
-    const divHearts = document.querySelector(".coracoes")
-
-    heart.src = "src/coracoes.png"
+    const heart = document.createElement("img");
+    const divHearts = document.querySelector(".coracoes");
+    heart.src = "src/coracoes.png";
     divHearts.appendChild(heart);
-
     heart.addEventListener("animationend", () => {
         heart.remove();
-    })
+    });
 }
 
 function mensagemFinal() {
-
     const message = document.querySelector(".message");
-
     message.textContent = "EU TE AMO DEMAIS, AMOR DA MINHA VIDA! MUITÍSSIMO OBRIGADA POR TUDO!";
-
     message.classList.remove("oculto");
-
     message.style.animation = "none";
     message.offsetHeight;
-
     message.style.animation =
         "slide-message 15s linear infinite, blink-message 0.35s step-end infinite";
 }
@@ -218,7 +185,7 @@ function mensagemFinal() {
 document.querySelector(".btn_fechar").onclick = function() {
     mudarSecao();
     mensagemFinal();
-    setInterval(spawnHeart, 300)
+    setInterval(spawnHeart, 300);
 
     const sparkleSound = new Audio("audio/sparkle.wav");
     sparkleSound.volume = 0.2;
@@ -226,9 +193,8 @@ document.querySelector(".btn_fechar").onclick = function() {
 
     setInterval(() => {
         sparkleSound.currentTime = 0;
-        sparkleSound.play();
+        sparkleSound.play().catch(() => {});
     }, 1500);
-    
-}
+};
 
 updateScreen();
