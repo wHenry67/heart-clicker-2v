@@ -97,7 +97,7 @@ function abrirPorta() {
 
     openSound.addEventListener("ended", () => {
         
-        trocarImagem("src/porta-aberta.png")
+        trocarImagem("src/IMG_3029.png")
     });
 
 }
