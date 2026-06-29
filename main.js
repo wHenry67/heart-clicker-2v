@@ -21,12 +21,12 @@ let intervalo_cliques = 35
 const intervalo = intervalo_cliques;
 
 const lista_msgs = {
-    msg_1: "Para esse dia tão especial, eu preparei uma surpresa para uma pessoa que eu amo demais... será que você consegue desbloquear esse presente?",
+    msg_1: "Para o seu aniversário, eu preparei uma surpresa para a mulher que eu mais amo nesse mundo... será que você consegue desbloquear esse presente?",
     msg_2: "Continue assim, meu amorzinho, você já está quase na metade. Mal vejo a hora de conseguir abrir essa porta...",
-    msg_3: "Você chegou na metade do caminho, meu amor. Avançou mais do que imagina. Continua tentanto, o cadeado já está começando a revelar o meu presente rsrs",
+    msg_3: "Você chegou na metade do caminho, minha Pitucha. Avançou mais do que imagina. Continua tentanto, o cadeado já está começando a revelar o meu presente",
     msg_4: "Agora só falta mais um pouquinho. O cadeado já está cedendo... você está indo muito bem, meu amorzinho!",
     msg_5: "Não para! Você está a um passo de abrir esse cadeado, meu amor.",
-    msg_6: "Eu sabia que você ia conseguir, João. Queria tanto estar com você agora e entregar essa carta nas suas mãos, porém, enquanto estivermos distantes, irei entregá-la virtualmente. Espero que goste do meu presente."
+    msg_6: "Eu sabia que você ia conseguir, Carol. Eu nunca tive duvidas que uma mulher tão forte quanto você conseguiria, eu te amo, o seu presente te espera."
 };
 
 const lista_barra = [
