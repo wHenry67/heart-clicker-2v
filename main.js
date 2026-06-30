@@ -116,7 +116,7 @@ function abrirCarta() {
     openSound.play().catch(mostrarBotaoFechar);
 
     divMsg.classList.add("hide");
-    trocarImagem("src/IMG_3029.png");
+    trocarImagem("src/feliz aniversario.png")
 }
 
 btn.addEventListener("click", function () {
